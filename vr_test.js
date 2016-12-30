@@ -84,26 +84,37 @@ function getTheImageDiff({referenceFile, testFile}) {
 function getAllImageDiff(files) {
     return files.map((file)=>{
         let {filename} = file;
-        let test = {
-            filename,
-            status: 'pass'
-        };
+
 
         return getTheImageDiff(file)
             .then((diff)=>{
                 if (diff.isSameDimensions && (diff.misMatchPercentage <= MIS_MATCH_THRESHOLD)) {
-                    return test;
+                    return {
+                        filename,
+                        status: 'PASSES'
+                    };
                 }
 
-                test.status = 'fail';
-                saveDiffImage(filename, diff);
-                return test;
-            }).catch((err)=>log(err, 'error'));;
+                let diffImageName = `${DIFF_IMAGES_PATH}/${filename}`
+
+                saveDiffImage(diffImageName, diff);
+                return {
+                    filename,
+                    status: 'FAILED',
+                    diffImage: diffImageName
+                };
+            }).catch((err)=>{
+                log(err, 'error');
+                return {
+                    filename,
+                    status: 'INVALID'
+                }
+            });
     });
 }
 
 function saveDiffImage (filename, data) {
-    var fileStream = fs.createWriteStream(`${DIFF_IMAGES_PATH}/${filename}`);
+    var fileStream = fs.createWriteStream(filename);
 
     var storageStream = data.getDiffImage()
         .pack()
