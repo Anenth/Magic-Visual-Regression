@@ -70,12 +70,12 @@ function getTheImageDiff({referenceFile, testFile}) {
     return new Promise(function (resolve, reject) {
 
         if (!fs.existsSync(testFile)) {
-            reject(`Test image not found ${testFile}`);
+            return reject(`Test image not found ${testFile}`);
         }
 
         resemble.outputSettings(RESEMABLE_SETTINGS);
 
-        resemble(referenceFile)
+        return resemble(referenceFile)
             .compareTo(testFile)
             .onComplete((data) => resolve(data));
     });
@@ -98,7 +98,7 @@ function getAllImageDiff(files) {
                 test.status = 'fail';
                 saveDiffImage(filename, diff);
                 return test;
-            });
+            }).catch((err)=>log(err, 'error'));;
     });
 }
 
