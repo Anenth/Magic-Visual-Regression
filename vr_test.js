@@ -26,6 +26,7 @@ function getConfigFromArgs() {
         process.exit();
     }
 
+    if (argsOptions['_'].length == 0) return;
     let {refs, test} = argsOptions['_'][0];
     REFERENCE_IMAGES_PATH = refs || REFERENCE_IMAGES_PATH;
     TEST_IMAGES_PATH = test || TEST_IMAGES_PATH;
