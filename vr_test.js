@@ -15,6 +15,10 @@ const {
     RESEMABLE_SETTINGS
 } = config;
 
+function log(message, type) {
+    console.log(message);
+}
+
 function getConfigFromArgs() {
     const argsOptions = parseArgs(process.argv.slice(2), {
         boolean: ['h', 'help'],
@@ -37,9 +41,14 @@ function getAllReferenceImages(){
 
         fs.readdir(REFERENCE_IMAGES_PATH, (err, filenames) => {
             if (err) {
-                reject('Error Reading folder', err);
+                return reject(`"${REFERENCE_IMAGES_PATH}" doesnt exists`, err);
             }
-            resolve(filenames.map((filename)=>({
+
+            if (!filenames.length) {
+                return reject(`There are no files inside ${REFERENCE_IMAGES_PATH}`, err);
+            }
+
+            return resolve(filenames.map((filename)=>({
                 filename,
                 referenceFile: `${REFERENCE_IMAGES_PATH}/${filename}`,
                 testFile: `${TEST_IMAGES_PATH}/${filename}`})
@@ -111,7 +120,7 @@ function RUN() {
             .then((d)=>{
                 console.log(d); //eslint-disable-line
             });
-    }).catch((err)=>err);
+    }).catch((err)=>log(err, 'error'));
 }
 
 RUN();
