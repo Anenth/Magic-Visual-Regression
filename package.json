@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "eslint": "^3.12.2",
     "fs-extra": "^1.0.0",
     "minimist": "^1.2.0",
     "node-resemble-js": "^0.2.0",

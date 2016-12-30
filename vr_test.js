@@ -16,7 +16,7 @@ const {
 } = config;
 
 function getConfigFromArgs() {
-    var argsOptions = parseArgs(process.argv.slice(2), {
+    const argsOptions = parseArgs(process.argv.slice(2), {
         boolean: ['h', 'help'],
         string: ['config']
     });
@@ -91,13 +91,13 @@ function getAllImageDiff(files) {
 }
 
 function saveDiffImage (filename, data) {
-  var fileStream = fs.createWriteStream(`${DIFF_IMAGES_PATH}/${filename}`);
+    var fileStream = fs.createWriteStream(`${DIFF_IMAGES_PATH}/${filename}`);
 
-  var storageStream = data.getDiffImage()
-    .pack()
-    .pipe(fileStream);
+    var storageStream = data.getDiffImage()
+        .pack()
+        .pipe(fileStream);
 
-  return streamToPromise(storageStream);
+    return streamToPromise(storageStream);
 }
 
 function RUN() {
