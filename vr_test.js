@@ -3,6 +3,7 @@ const fs = require('fs');
 const fse = require('fs-extra');
 const streamToPromise = require('stream-to-promise');
 const parseArgs = require('minimist');
+const chalk = require('chalk');
 
 const config = require('./config');
 let {
@@ -16,7 +17,36 @@ const {
 } = config;
 
 function log(message, type) {
-    console.log(message);
+    const log = console.log;
+    const COLOR = {
+        error: 'red',
+        warn: 'yellow',
+        log: 'gray',
+        success: 'green'
+    }
+    const chalkColor = chalk[COLOR[type]] || chalk.gray;
+
+    if(!type) {
+        return log(message);
+    }
+
+    log(chalkColor(message));
+}
+
+function reportLog(item) {
+    const COLOR = {
+        FAILED: 'red',
+        INVALID: 'yellow',
+        PASS: 'green'
+    };
+
+    const chalkColor = chalk[COLOR[item.status]] || chalk.gray;
+    const status = chalkColor.dim(item.status);
+    const filename = chalkColor.bold(item.filename);
+    const misMatch = chalk.white.bgRed(item.misMatchPercentage || '');
+    const imageUrl = chalkColor.underline(item.diffImage || '');
+
+    console.log(`${status} | ${filename} ${misMatch}| ${imageUrl}`);
 }
 
 function getConfigFromArgs() {
@@ -101,7 +131,8 @@ function getAllImageDiff(files) {
                 return {
                     filename,
                     status: 'FAILED',
-                    diffImage: diffImageName
+                    diffImage: diffImageName,
+                    misMatchPercentage: diff.misMatchPercentage
                 };
             }).catch((err)=>{
                 log(err, 'error');
@@ -123,6 +154,12 @@ function saveDiffImage (filename, data) {
     return streamToPromise(storageStream);
 }
 
+function generateReport(reportData) {
+    reportData.forEach((item)=>{
+        reportLog(item)
+    });
+}
+
 function RUN() {
     getConfigFromArgs();
 
@@ -130,9 +167,7 @@ function RUN() {
     .then((files)=>{
         createFolder(DIFF_IMAGES_PATH);
         Promise.all(getAllImageDiff(files))
-            .then((d)=>{
-                console.log(d); //eslint-disable-line
-            });
+            .then((reportData)=> generateReport(reportData));
     }).catch((err)=>log(err, 'error'));
 }
 
