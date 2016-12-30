@@ -7,10 +7,10 @@ const parseArgs = require('minimist');
 const config = require('./config');
 let {
     REFERENCE_IMAGES_PATH,
-    TEST_IMAGES_PATH} = config;
+    TEST_IMAGES_PATH,
+    DIFF_IMAGES_PATH } = config;
 
 const {
-    DIFF_IMAGES_PATH,
     MIS_MATCH_THRESHOLD,
     RESEMABLE_SETTINGS
 } = config;
@@ -26,14 +26,16 @@ function getConfigFromArgs() {
     });
 
     if (argsOptions.h || argsOptions.help) {
-        console.log("Use refs - Reference images path \n Use test - Test images path"); //eslint-disable-line
+        console.log("Reference images path, Test images path, diff path"); //eslint-disable-line
         process.exit();
     }
 
-    if (argsOptions['_'].length == 0) return;
-    let {refs, test} = argsOptions['_'][0];
-    REFERENCE_IMAGES_PATH = refs || REFERENCE_IMAGES_PATH;
-    TEST_IMAGES_PATH = test || TEST_IMAGES_PATH;
+    let args = argsOptions['_'];
+    if (args.length == 0) return;
+
+    REFERENCE_IMAGES_PATH = args[0] || REFERENCE_IMAGES_PATH;
+    TEST_IMAGES_PATH = args[1] || TEST_IMAGES_PATH;
+    DIFF_IMAGES_PATH = args[2] || DIFF_IMAGES_PATH;
 }
 
 function getAllReferenceImages(){
