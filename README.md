@@ -13,7 +13,10 @@ It's acually very easy to get started.
 In this tool, we will take care of the 2 and 3 steps,
 the tool uses `resemble.js` to generate the diff images.
 
-## How to use! 
+## Installation  
+    `git clone Anenth/Magic-Visual-Regression.git`
+
+## Usage
 1. Clone the repo
 2. Install the packages required using `yarn install`
 3. Take screenshots and give it a good name. These are the **reference** images.
@@ -24,3 +27,8 @@ the tool uses `resemble.js` to generate the diff images.
 5. Now it's time for magic run 
     `node vr_test.js <path to reference images> <path to test images> <path to save diff images>`.
 
+## Tests
+    Pending
+
+<!--## Contributing 
+    -->
