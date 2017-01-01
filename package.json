@@ -1,6 +1,6 @@
 {
-    "name": "magic_visual_regression",
-    "version": "0.1.0",
+    "name": "magic-visual-regression",
+    "version": "0.1.1",
     "description": "A Simple tool for Visual Regression testing",
     "main": "index.js",
     "scripts": {

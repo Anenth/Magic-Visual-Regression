@@ -1,4 +1,6 @@
 # Magic-Visual-Regression
+[![Build Status](https://travis-ci.org/Anenth/Magic-Visual-Regression.svg?branch=master)](https://travis-ci.org/Anenth/Magic-Visual-Regression) [coveralls badge]
+
 A Simple tool for **Visual Regression**.
 
 Its always hard to get things started, everyone thinks about getting started with 
@@ -14,18 +16,16 @@ In this tool, we will take care of the 2 and 3 steps,
 the tool uses `resemble.js` to generate the diff images.
 
 ## Installation  
-    `git clone Anenth/Magic-Visual-Regression.git`
+    `yarn add magic-visual-regression` or `npm i magic-visual-regression` 
 
 ## Usage
-1. Clone the repo
-2. Install the packages required using `yarn install`
-3. Take screenshots and give it a good name. These are the **reference** images.
+1. Take screenshots and give it a good name. These are the **reference** images.
     Screenshots can be captured using many techniques, Simplest to get started being taking
     screenshots manually, a handy chrome extension is [Full page screen capture](https://chrome.google.com/webstore/detail/full-page-screen-capture/fdpohaocaechififmbbbbbknoalclacl "Full page screen capture"). 
-4. After making changes to your code(css). Take the screenshots of **test** images which 
+2. After making changes to your code(css). Take the screenshots of **test** images which 
     will be compared with the reference images.
-5. Now it's time for magic run 
-    `node vr_test.js <path to reference images> <path to test images> <path to save diff images>`.
+3. Now it's time for magic run 
+    `magic-visual-regression <path to reference images> <path to test images> <path to save diff images>`.
 
 ## Tests
     Pending
