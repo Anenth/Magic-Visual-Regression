@@ -68,6 +68,13 @@ function getConfigFromArgs() {
     DIFF_IMAGES_PATH = args[2] || DIFF_IMAGES_PATH;
 }
 
+function ignoreSystemFiles(filenames) {
+    const systemFiles = ['.DS_Store'];
+    debugger;
+    return filenames.filter(
+        (file) =>!(systemFiles.indexOf(file) > -1) );
+}
+
 function getAllReferenceImages(){
     return new Promise(function(resolve, reject){
 
@@ -80,6 +87,7 @@ function getAllReferenceImages(){
                 return reject(`There are no files inside ${REFERENCE_IMAGES_PATH}`, err);
             }
 
+            filenames = ignoreSystemFiles(filenames);
             return resolve(filenames.map((filename)=>({
                 filename,
                 referenceFile: `${REFERENCE_IMAGES_PATH}/${filename}`,
