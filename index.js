@@ -46,7 +46,7 @@ function reportLog(item) {
     const misMatch = chalk.white.bgRed(item.misMatchPercentage || '');
     const imageUrl = chalkColor.underline(item.diffImage || '');
 
-    console.log(`${status} | ${filename} ${misMatch}| ${imageUrl}`);
+    console.log(`${status} | ${filename} ${misMatch} ${imageUrl &&  '| ' + imageUrl}`);
 }
 
 function getConfigFromArgs() {
