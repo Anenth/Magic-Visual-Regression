@@ -163,15 +163,18 @@ function saveDiffImage (filename, data) {
 }
 
 function generateReport(reportData) {
+    log('-----------------------------------------------------------------');
     reportData.forEach((item)=>{
         reportLog(item)
     });
+    log('-----------------------------------------------------------------');
 }
 
 function RUN() {
     getConfigFromArgs();
 
     getAllReferenceImages()
+    .then((files)=>{log(`${files.length} images for visual regression`); return files;})
     .then((files)=>{
         createFolder(DIFF_IMAGES_PATH);
         Promise.all(getAllImageDiff(files))
