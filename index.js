@@ -37,7 +37,7 @@ function reportLog(item) {
     const COLOR = {
         FAILED: 'red',
         INVALID: 'yellow',
-        PASS: 'green'
+        PASSED: 'green'
     };
 
     const chalkColor = chalk[COLOR[item.status]] || chalk.gray;
@@ -129,7 +129,7 @@ function getAllImageDiff(files) {
                 if (diff.isSameDimensions && (diff.misMatchPercentage <= MIS_MATCH_THRESHOLD)) {
                     return {
                         filename,
-                        status: 'PASSES'
+                        status: 'PASSED'
                     };
                 }
 
