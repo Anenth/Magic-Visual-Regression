@@ -182,4 +182,4 @@ function RUN() {
     }).catch((err)=>log(err, 'error'));
 }
 
-module.export = RUN;
+module.exports = {run: RUN};
