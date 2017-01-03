@@ -8,14 +8,16 @@ visual regression testing on their website/apps but fails because of difficulty 
  I was in a similar situation too. 
 
 It's acually very easy to get started. 
-1. Take the screenshots 
-2. Compare the images
-3. Check the difference.
+
+    1. Take the screenshots.
+    2. Compare the images.
+    3. Check the difference.
 
 In this tool, we will take care of the 2 and 3 steps,
 the tool uses `resemble.js` to generate the diff images.
 
 ## Installation  
+    
     `yarn add magic-visual-regression` or `npm i magic-visual-regression` 
 
 ## Usage
